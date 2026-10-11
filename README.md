@@ -1,4 +1,4 @@
-# 💻 Professional Laptop Price Predictor
+# 💻 Laptop Price Predictor
 
 A machine learning-powered web application built with **Streamlit** that predicts laptop market prices based on various hardware specifications such as brand, processor, RAM, storage, and build type with high precision.
 
