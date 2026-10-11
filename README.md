@@ -1,4 +1,4 @@
-# 💻 Laptop Price Predictor
+# 💻 Professional Laptop Price Predictor
 
 A machine learning-powered web application built with **Streamlit** that predicts laptop market prices based on various hardware specifications such as brand, processor, RAM, storage, and build type with high precision.
 
@@ -12,9 +12,8 @@ A machine learning-powered web application built with **Streamlit** that predict
 ## 🛠️ Tech Stack & Libraries
 - **Language:** Python 🐍
 - **Web Framework:** Streamlit
-- **Machine Learning & Pipeline:** Scikit-learn, XGBoost
-- **Data Manipulation:** Pandas, NumPy
-- **Visualization:** Matplotlib, Seaborn
+- **Machine Learning & Pipeline:** Scikit-learn, XGBoost, Pandas, NumPy
+- **Data Visualization:** Matplotlib, Seaborn
 - **Deployment:** Streamlit Community Cloud
 
 ---
@@ -27,14 +26,16 @@ The web interface is designed with a clean, responsive 3-column layout categoriz
 
 ---
 
-## 🧠 Machine Learning Approach & Models Explored
-During the model development phase in the Jupyter Notebook, multiple regression algorithms were trained and evaluated using **Pipelines** and **ColumnTransformers** to handle categorical encoding seamlessly:
-- Linear Regression, Ridge, and Lasso Regression
-- K-Nearest Neighbors (KNN)
-- Decision Tree & Support Vector Regressor (SVR)
-- **Ensemble Techniques:** Random Forest, Extra Trees, AdaBoost, Gradient Boosting, XGBoost, Voting Regressor, and Stacking Regressor.
+## 🧠 Machine Learning Workflow & Models Explored
+During the model development phase in the Jupyter Notebook (`Laptop_price_predictor.ipynb`), data preprocessing, feature engineering (such as PPI calculation from screen resolution, parsing memory into distinct SSD/HDD components, and handling categorical data), and extensive model evaluation were performed. 
 
-*(The final deployed model leverages an optimized **Random Forest Regressor** pipeline integrated with log-transformed target pricing for robust predictions).*
+The following regression algorithms were tested using pipelines and column transformers:
+- **Linear Regression, Ridge, & Lasso Regression**
+- **K-Nearest Neighbors (KNN)**
+- **Decision Tree & Support Vector Regressor (SVR)**
+- **Ensemble & Advanced Models:** Random Forest, Extra Trees, AdaBoost, Gradient Boosting, XGBoost, Voting Regressor, and Stacking Regressor.
+
+*(The final deployed application utilizes an optimized **Random Forest Regressor** pipeline integrated with log-transformed target pricing for robust accuracy).*
 
 ---
 
@@ -42,10 +43,10 @@ During the model development phase in the Jupyter Notebook, multiple regression 
 ```text
 Laptop-Price-Predictor/
 │
-├── main_app.py               # Main Streamlit web application file
-├── laptop_data.csv           # Original dataset used for training
+├── main_app.py                   # Main Streamlit web application file
+├── laptop_data.csv               # Original dataset used for training
 ├── Laptop_price_predictor.ipynb  # Jupyter Notebook for EDA & model training
-├── df.pkl                    # Pickled dataframe for dropdown options mapping
-├── pipe.pkl                  # Trained Machine Learning pipeline model
-├── requirements.txt          # Project dependencies and libraries
-└── README.md                 # Project documentation
+├── df.pkl                        # Pickled dataframe for dropdown options mapping
+├── pipe.pkl                      # Trained Machine Learning pipeline model
+├── requirements.txt              # Project dependencies and libraries
+└── README.md                     # Project documentation
