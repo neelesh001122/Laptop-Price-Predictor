@@ -1,3 +1,4 @@
 streamlit
 scikit-learn
-streamlit run app.py (to run code)
+numpy
+pandas
