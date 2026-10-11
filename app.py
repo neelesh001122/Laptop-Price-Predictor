@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import numpy as np
+import pandas as pd
 
 # Page configuration
 st.set_page_config(page_title="Laptop Price Predictor", page_icon="💻", layout="wide")
@@ -12,38 +13,17 @@ try:
 except Exception as e:
     st.error(f"Model files load karne mein error aaya: {e}")
 
-# Custom CSS for clean UI styling
-st.markdown("""
-    <style>
-        .main-title {
-            text-align: center;
-            font-size: 38px;
-            font-weight: 700;
-            color: #1f77b4;
-            margin-bottom: 10px;
-        }
-        .sub-text {
-            text-align: center;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 30px;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown('<p class="main-title">💻 Advanced Laptop Price Predictor</p>', unsafe_allow_html=True)
-st.markdown('<p class="sub-text">Configure your desired laptop specifications below to get an instant estimated market price.</p>', unsafe_allow_html=True)
-
+st.markdown("<h1 style='text-align: center; color: #1f77b4;'>💻 Advanced Laptop Price Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #555;'>Configure your desired laptop specifications below to get an instant estimated market price.</p>", unsafe_allow_html=True)
 st.divider()
 
-# Symmetric 3-Column Layout for balanced UI
+# Symmetric 3-Column Layout
 col1, col2, col3 = st.columns(3, gap="medium")
 
 with col1:
     st.subheader("⚙️ General Specs")
     company = st.selectbox('Brand', sorted(df['Company'].unique()))
     
-    # Dynamic OS selection based on Brand
     if company == 'Apple':
         os_options = [o for o in df['os'].unique() if 'mac' in o.lower() or 'ios' in o.lower()]
         if not os_options:
@@ -76,37 +56,31 @@ with col3:
 
 st.divider()
 
-# Centered Predict Button
 col_space1, col_btn, col_space2 = st.columns([1, 2, 1])
-
 with col_btn:
     predict_clicked = st.button('Predict Laptop Price', use_container_width=True)
 
 if predict_clicked:
     try:
-        # Binary encoding
         touchscreen_val = 1 if touchscreen == 'Yes' else 0
         ips_val = 1 if ips == 'Yes' else 0
 
-        # Resolution split
         X_Res = int(resolution.split('x')[0])
         Y_Res = int(resolution.split('x')[1])
 
-        # Validation & Calculation
         if screen_size <= 0:
             st.error("Screen size must be greater than 0.")
         else:
             PPI = (((X_Res ** 2) + (Y_Res ** 2)) ** 0.5) / screen_size
 
-            # Create query array matching model input format
-            query = np.array([company, type, ram, weight, touchscreen_val, ips_val, PPI, cpu, hdd, ssd, gpu, os])
-            query = query.reshape(1, 12)
+            # DataFrame creation to match exact training column feature names/types
+            query_df = pd.DataFrame([[company, type, ram, weight, touchscreen_val, ips_val, PPI, cpu, hdd, ssd, gpu, os]],
+                                    columns=['Company', 'TypeName', 'Ram', 'Weight', 'Touchscreen', 'IPS', 'ppi', 'Cpu brand', 'HDD', 'SSD', 'Gpu brand', 'os'])
 
             # Prediction
-            predicted_log_price = pipe.predict(query)[0]
+            predicted_log_price = pipe.predict(query_df)[0]
             predicted_price = int(np.exp(predicted_log_price))
 
-            # Success result box
             st.success(f"### Estimated Laptop Price: ₹ {predicted_price:,}")
 
     except Exception as err:
