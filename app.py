@@ -73,9 +73,9 @@ if predict_clicked:
         else:
             PPI = (((X_Res ** 2) + (Y_Res ** 2)) ** 0.5) / screen_size
 
-            # DataFrame creation to match exact training column feature names/types
+            # Exact column names matching the model training dataset
             query_df = pd.DataFrame([[company, type, ram, weight, touchscreen_val, ips_val, PPI, cpu, hdd, ssd, gpu, os]],
-                                    columns=['Company', 'TypeName', 'Ram', 'Weight', 'Touchscreen', 'IPS', 'ppi', 'Cpu brand', 'HDD', 'SSD', 'Gpu brand', 'os'])
+                                    columns=['Company', 'TypeName', 'Ram', 'Weight', 'Touchscreen', 'Ips', 'PPI', 'Cpu Brand', 'HDD', 'SSD', 'Gpu brand', 'os'])
 
             # Prediction
             predicted_log_price = pipe.predict(query_df)[0]
